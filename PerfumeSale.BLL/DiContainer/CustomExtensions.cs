@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PerfumeSale.BLL.Abstract;
+using PerfumeSale.BLL.Concrete.EntityFrameworkCore;
 using PerfumeSale.Core.Abstract;
 using PerfumeSale.Core.Concrete.EntityFrameworkCore.Repositories;
 using System;
@@ -17,6 +19,12 @@ namespace PerfumeSale.BLL.DiContainer
             services.AddTransient<IOrderDetailRepository, EfOrderDetailRepository>();
             services.AddTransient<IPerfumeRepository, EfPerfumeRepository>();
             services.AddTransient<IUserDetailRepository, EfUserDetailRepository>();
+
+            services.AddTransient<IBrandService, EfBrandService>();
+            services.AddTransient<IOrderService, EfOrderService>();
+            services.AddTransient<IOrderDetailService, EfOrderDetailService>();
+            services.AddTransient<IPerfumeService, EfPerfumeService>();
+            services.AddTransient<IUserDetailService, EfUserDetailService>();
         }
     }
 }
