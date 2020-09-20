@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfumeSale.BLL", "PerfumeSale.BLL\PerfumeSale.BLL.csproj", "{FA85156E-A12F-4978-9BEB-33D058FCCFC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfumeSale.Core", "PerfumeSale.Core\PerfumeSale.Core.csproj", "{E4B93E05-EDFA-44A4-A483-53DA9797BF1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfumeSale.WepAPI", "PerfumeSale.WepAPI\PerfumeSale.WepAPI.csproj", "{2682DC96-8AA2-422B-BA13-C31868F62995}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA85156E-A12F-4978-9BEB-33D058FCCFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA85156E-A12F-4978-9BEB-33D058FCCFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA85156E-A12F-4978-9BEB-33D058FCCFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA85156E-A12F-4978-9BEB-33D058FCCFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4B93E05-EDFA-44A4-A483-53DA9797BF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4B93E05-EDFA-44A4-A483-53DA9797BF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4B93E05-EDFA-44A4-A483-53DA9797BF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4B93E05-EDFA-44A4-A483-53DA9797BF1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2682DC96-8AA2-422B-BA13-C31868F62995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2682DC96-8AA2-422B-BA13-C31868F62995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2682DC96-8AA2-422B-BA13-C31868F62995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2682DC96-8AA2-422B-BA13-C31868F62995}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
