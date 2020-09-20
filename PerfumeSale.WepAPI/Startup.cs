@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PerfumeSale.BLL.DiContainer;
 using PerfumeSale.Core.Concrete.EntityFrameworkCore.Context;
 
 namespace PerfumeSale.WepAPI
@@ -27,6 +28,7 @@ namespace PerfumeSale.WepAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddContainerWithDependencies();
             services.AddDbContext<PsDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 

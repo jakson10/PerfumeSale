@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PerfumeSale.Core\PerfumeSale.Core.csproj" />
+    <ProjectReference Include="..\PerfumeSale.BLL\PerfumeSale.BLL.csproj" />
   </ItemGroup>
 
 
