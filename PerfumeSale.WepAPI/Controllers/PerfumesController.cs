@@ -22,6 +22,8 @@ namespace PerfumeSale.WepAPI.Controllers
             _perfumeService = perfumeService;
             _mapper = mapper;
         }
+        //[EnableQuery(PageSize = 8)]
+
 
         [HttpGet]
         [EnableQuery]
@@ -34,7 +36,19 @@ namespace PerfumeSale.WepAPI.Controllers
         [EnableQuery]
         public async Task<ActionResult<Perfume>> GetPerfumeById(int id)
         {
-            return Ok(await _perfumeService.GetPerfumeById(id));
+            return Ok(await _perfumeService.GetPerfumeByIdAsync(id));
+        }
+
+        [HttpGet("[action]/{perfumeName}")]
+        [EnableQuery]
+        public async Task<ActionResult<Brand>> GetPerfumeByPerfumeName(string perfumeName)
+        {
+            var entity = await _perfumeService.GetPerfumeByPerfumeNameAsync(perfumeName);
+            if (entity != null)
+            {
+                return BadRequest("Null entity");
+            }
+            return Ok();
         }
 
         [HttpPost]
@@ -69,7 +83,7 @@ namespace PerfumeSale.WepAPI.Controllers
 
             if (uploadModel.UploadState == UploadState.Success)
             {
-                var updatePerfume = await _perfumeService.GetPerfumeById(perfume.PerfumeId);
+                var updatePerfume = await _perfumeService.GetPerfumeByIdAsync(perfume.PerfumeId);
                 updatePerfume.PerfumeName = perfume.PerfumeName;
                 updatePerfume.Price = perfume.Price;
                 updatePerfume.PhotoPath = uploadModel.NewName;
@@ -79,7 +93,7 @@ namespace PerfumeSale.WepAPI.Controllers
             }
             else if (uploadModel.UploadState == UploadState.NotExist)
             {
-                var updatePerfume = await _perfumeService.GetPerfumeById(perfume.PerfumeId);
+                var updatePerfume = await _perfumeService.GetPerfumeByIdAsync(perfume.PerfumeId);
                 updatePerfume.PerfumeName = perfume.PerfumeName;
                 updatePerfume.Price = perfume.Price;
 
@@ -96,7 +110,7 @@ namespace PerfumeSale.WepAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePerfume(int id)
         {
-            await _perfumeService.DeletePerfumeAsync(await _perfumeService.GetPerfumeById(id));
+            await _perfumeService.DeletePerfumeAsync(await _perfumeService.GetPerfumeByIdAsync(id));
             return NoContent();
         }
     }

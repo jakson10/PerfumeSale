@@ -1,4 +1,5 @@
-﻿using PerfumeSale.BLL.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using PerfumeSale.BLL.Abstract;
 using PerfumeSale.Core.Abstract;
 using PerfumeSale.Core.Entities;
 using System;
@@ -28,15 +29,20 @@ namespace PerfumeSale.BLL.Concrete.EntityFrameworkCore
             return await Task.FromResult<bool>(true);
         }
 
-        public async Task<Perfume> GetPerfumeById(int id)
+        public async Task<Perfume> GetPerfumeByIdAsync(int id)
         {
             var entity = _perfumeRepository.Get(id);
             return await Task.FromResult(entity).Result;
         }
-
+        public async Task<Perfume> GetPerfumeByPerfumeNameAsync(string perfumeName)
+        {
+            var entity = await _perfumeRepository.Find(x => x.PerfumeName == perfumeName).FirstOrDefaultAsync(); 
+            return await Task.FromResult(entity);
+        }
+        
         public async Task<IEnumerable<Perfume>> GetPerfumesAsync()
         {
-            var list = _perfumeRepository.GetAll();
+            var list = _perfumeRepository.GetAll().AsEnumerable();
             return await Task.FromResult(list.AsEnumerable());
         }
 
@@ -45,6 +51,7 @@ namespace PerfumeSale.BLL.Concrete.EntityFrameworkCore
             await _perfumeRepository.Edit(perfume);
             return await Task.FromResult<bool>(true);
         }
+
     }
 }
 

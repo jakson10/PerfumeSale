@@ -1,24 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.OData.Batch;
-using Microsoft.AspNet.OData.Builder;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OData.Edm;
+using PerfumeSale.BLL.Abstract;
 using PerfumeSale.BLL.DiContainer;
 using PerfumeSale.Core.Concrete.EntityFrameworkCore.Context;
-using PerfumeSale.Core.Entities;
 
 namespace PerfumeSale.WepAPI
 {
@@ -38,6 +30,8 @@ namespace PerfumeSale.WepAPI
             services.AddContainerWithDependencies();
             services.AddDbContext<PsDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddOData();
+            services.AddCustomValidator();
+            services.AddControllersWithViews().AddFluentValidation();
             //services.AddControllers(mvcOptions => mvcOptions.EnableEndpointRouting = false);
             services.AddMvc(options => options.EnableEndpointRouting = false).AddNewtonsoftJson();
             services.AddAutoMapper(typeof(Startup));
@@ -54,7 +48,6 @@ namespace PerfumeSale.WepAPI
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -63,18 +56,8 @@ namespace PerfumeSale.WepAPI
             app.UseMvc(routeBuilder =>
             {
                 routeBuilder.EnableDependencyInjection();
-                routeBuilder.Select().Filter().Expand();
-                //routeBuilder.MapODataServiceRoute("api", "api", GetEdmModel());
+                routeBuilder.Select().Filter().Expand().Count().OrderBy().MaxTop(20);
             });
-        }
-
-        private IEdmModel GetEdmModel()
-        {
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.Namespace = "ODataSample";
-            builder.ContainerName = "DefaultContainer";
-            builder.EntitySet<Brand>("Brands");
-            return builder.GetEdmModel();
         }
     }
 }

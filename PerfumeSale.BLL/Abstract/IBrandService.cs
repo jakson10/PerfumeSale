@@ -16,6 +16,8 @@ namespace PerfumeSale.BLL.Abstract
 
         Task<IEnumerable<Brand>> GetBrandsAsync();
 
-        Task<Brand> GetBrandById(int id);
+        Task<Brand> GetBrandByIdAsync(int id);
+
+        Task<Brand> GetBrandByBrandNameAsync(string brandName);
     }
 }

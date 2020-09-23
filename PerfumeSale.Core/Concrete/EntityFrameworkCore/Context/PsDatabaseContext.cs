@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PerfumeSale.Core.Concrete.EntityFrameworkCore.Mapping;
 using PerfumeSale.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PerfumeSale.Core.Concrete.EntityFrameworkCore.Context
 {
@@ -11,7 +9,7 @@ namespace PerfumeSale.Core.Concrete.EntityFrameworkCore.Context
     {
         public PsDatabaseContext(DbContextOptions options) : base(options)
         {
-
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,8 +19,6 @@ namespace PerfumeSale.Core.Concrete.EntityFrameworkCore.Context
             modelBuilder.ApplyConfiguration(new OrderDetailMap());
             modelBuilder.ApplyConfiguration(new PerfumeMap());
             modelBuilder.ApplyConfiguration(new UserDetailMap());
-
-            base.OnModelCreating(modelBuilder);
         }
 
         public virtual DbSet<Brand> Brands { get; set; }
@@ -30,5 +26,7 @@ namespace PerfumeSale.Core.Concrete.EntityFrameworkCore.Context
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Perfume> Perfumes { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
+
     }
+
 }

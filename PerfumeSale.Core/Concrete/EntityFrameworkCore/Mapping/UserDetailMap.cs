@@ -21,6 +21,17 @@ namespace PerfumeSale.Core.Concrete.EntityFrameworkCore.Mapping
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Phone).IsRequired();
             builder.Property(x => x.Address).IsRequired();
+
+            builder.HasData(new UserDetail
+                   {
+                       UserDetailId = 7,
+                       UserName = "jakson10",
+                       FirstName = "fatih",
+                       LastName = "sozuer",
+                       Email = "fatihsozuer0@gmail.com",
+                       Phone = "5364595158",
+                       Address = "Cubuklu mahallesi engurubagı caddesı no=60 daire=1"
+                   });
         }
     }
 }

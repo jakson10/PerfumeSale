@@ -22,7 +22,7 @@ namespace PerfumeSale.WepAPI.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetPerfumeImageById(int id)
         {
-            var entity = await _perfumeService.GetPerfumeById(id);
+            var entity = await _perfumeService.GetPerfumeByIdAsync(id);
             if (string.IsNullOrWhiteSpace(entity.PhotoPath))
                 return NotFound("Resim yok");
             return File($"/img/{entity.PhotoPath}", "image/jpeg");

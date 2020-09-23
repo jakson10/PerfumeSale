@@ -12,21 +12,6 @@ namespace PerfumeSale.WepAPI.AutoMapper
     {
        public MapProfile()
         {
-            //CreateMap<Order, OrderDto>();
-            //CreateMap<OrderDto, Order>();
-
-            //CreateMap<Brand, BrandDto>();
-            //CreateMap<BrandDto, Brand>();
-
-            //CreateMap<Perfume, PerfumeDto>();
-            //CreateMap<PerfumeDto, Perfume>();
-
-            //CreateMap<OrderDetail, OrderDetailDto>();
-            //CreateMap<OrderDetailDto, OrderDetail>();
-
-            //CreateMap<UserDetail, UserDetailDto>();
-            //CreateMap<UserDetailDto, UserDetail>();
-
             CreateMap<Perfume, PerfumeAddModel>();
             CreateMap<PerfumeAddModel, Perfume>();
 

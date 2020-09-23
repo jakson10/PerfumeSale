@@ -40,19 +40,5 @@ namespace PerfumeSale.WepAPI.Controllers
             return Created("", orderDetail);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutOrderDetail(OrderDetail orderDetail)
-        {
-            await _orderDetailService.UpdateOrderDetailAsync(orderDetail);
-            return Created("", orderDetail);
-        }
-
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrderDetail(int id)
-        {
-            await _orderDetailService.DeleteOrderDetailAsync(await _orderDetailService.GetOrderDetailById(id));
-            return NoContent();
-        }
     }
 }

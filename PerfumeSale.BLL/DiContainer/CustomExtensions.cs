@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using PerfumeSale.BLL.Abstract;
 using PerfumeSale.BLL.Concrete.EntityFrameworkCore;
+using PerfumeSale.BLL.ValidationRules.FluentValidation;
 using PerfumeSale.Core.Abstract;
 using PerfumeSale.Core.Concrete.EntityFrameworkCore.Repositories;
+using PerfumeSale.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +28,15 @@ namespace PerfumeSale.BLL.DiContainer
             services.AddTransient<IOrderDetailService, EfOrderDetailService>();
             services.AddTransient<IPerfumeService, EfPerfumeService>();
             services.AddTransient<IUserDetailService, EfUserDetailService>();
+        }
+
+        public static void AddCustomValidator(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<Brand>, BrandValidator>();
+            services.AddTransient<IValidator<Order>, OrderValidator>();
+            services.AddTransient<IValidator<Perfume>, PerfumeValidator>();
+            services.AddTransient<IValidator<OrderDetail>, OrderDetailValidator>();
+            services.AddTransient<IValidator<UserDetail>, UserDetailValidator>();
         }
     }
 }

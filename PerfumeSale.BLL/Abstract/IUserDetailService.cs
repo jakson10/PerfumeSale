@@ -1,7 +1,5 @@
 ﻿using PerfumeSale.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PerfumeSale.BLL.Abstract
@@ -16,6 +14,10 @@ namespace PerfumeSale.BLL.Abstract
 
         Task<IEnumerable<UserDetail>> GetUserDetailsAsync();
 
-        Task<UserDetail> GetUserDetailById(int id);
+        Task<UserDetail> GetUserDetailByIdAsync(int id);
+
+        Task<UserDetail> SignInAsync(string firstName, string lastName);
+
+        Task<UserDetail> GetUserDetailByUserNameAsync(string userName);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Mvc;
 using PerfumeSale.BLL.Abstract;
 using PerfumeSale.Core.Entities;
@@ -18,7 +19,8 @@ namespace PerfumeSale.WepAPI.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
+        //[EnableQuery]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
         {
             return Ok(await _brandService.GetBrandsAsync());
@@ -28,7 +30,21 @@ namespace PerfumeSale.WepAPI.Controllers
         [EnableQuery]
         public async Task<ActionResult<Brand>> GetBrandById(int id)
         {
-            return Ok(await _brandService.GetBrandById(id));
+            return Ok(await _brandService.GetBrandByIdAsync(id));
+        }
+
+
+
+        [HttpGet("[action]/{brandName}")]
+        [EnableQuery]
+        public async Task<ActionResult<Brand>> GetBrandByBrandName(string brandName)
+        {
+            var entity = await _brandService.GetBrandByBrandNameAsync(brandName);
+            if (entity != null)
+            {
+                return BadRequest("Null entity");
+            }
+            return Ok();
         }
 
         [HttpPost]
@@ -38,18 +54,24 @@ namespace PerfumeSale.WepAPI.Controllers
             return Created("", brand);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutBrand(Brand brand)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBrand(int id, Brand brand)
         {
-            await _brandService.UpdateBrandAsync(brand);
-            return Created("", brand);
+            if (id != brand.BrandId)
+                return BadRequest("geçersiz id");
+
+            var updateBrand = await _brandService.GetBrandByIdAsync(brand.BrandId);
+            updateBrand.BrandName = brand.BrandName;
+            updateBrand.Description = brand.Description;
+            await _brandService.UpdateBrandAsync(updateBrand);
+            return Created("", updateBrand);
         }
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            await _brandService.DeleteBrandAsync(await _brandService.GetBrandById(id));
+            await _brandService.DeleteBrandAsync(await _brandService.GetBrandByIdAsync(id));
             return NoContent();
         }
     }
